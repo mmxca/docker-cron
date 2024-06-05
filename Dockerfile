@@ -14,14 +14,14 @@ FROM curlimages/curl:${CURL_IMAGE_TAG}
 
 ENV DOCKER_CRONTAB=''
 
+#copy curl
+COPY --from=curlimages/curl:latest /usr/bin/curl /usr/bin/
+
 #copy docker
 COPY --from=0 /usr/local/bin/docker /usr/local/bin/docker
 
 #copy docker-compose
 COPY --from=docker/compose:1.25.0-alpine /usr/local/bin/docker-compose /usr/local/bin/
-
-#copy curl
-COPY --from=curlimages/curl:latest /usr/bin/curl /usr/bin/
 
 #copy entrypoint
 COPY docker-entrypoint.sh /
